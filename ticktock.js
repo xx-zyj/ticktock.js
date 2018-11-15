@@ -87,13 +87,26 @@ class TickTock {
         if (timers.length === 0) return
 
         let nextTimers = []
-        for (let i=0; i<timers.length; i++) {
+        let minTime = data.now
+        let minHandler = null
+        for (let i=0; i<timers.length; i++) { // 这里要确定最小时间 // 并只触发最小时间点 // 确保只有一个函数执行
             let currTimer = timers[i]
+
+            let step = data.now - currTimer.time
             if (currTimer.time <= data.now) {
-                currTimer.fn.call(currTimer.ctx, data)
+                if (step < minTime) {
+                    minTime = currTimer.time
+                    minHandler = currTimer
+                } else {
+                    // 过期函数不执行
+                }
             } else {
                 nextTimers.push(currTimer)
             }
+        }
+
+        if (minHandler) {
+            minHandler.fn.call(minHandler.ctx, data)
         }
 
         this._evts['timer'] = nextTimers

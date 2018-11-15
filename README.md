@@ -11,8 +11,6 @@
 <dl>
 <dt><a href="#TickTock">TickTock</a></dt>
 <dd></dd>
-<dt><a href="#TickTock">TickTock</a></dt>
-<dd></dd>
 </dl>
 
 ## Functions
@@ -135,3 +133,11 @@
 | time | <code>string</code> |
 | fn | <code>func</code> |
 | ctx | <code>obj</code> |
+
+# 注意事项
+
+1. 倒计时使用count()运行，定时器使用start()运行
+
+2. 倒计时不应该监听when(time)时间点，因为count没有时间的概念只会倒计时秒数
+
+3. timer when(time)，如果当前起始时间处于多个time之后，只会执行最靠近的一个time fn (这里有待商榷，可以修改为start时去除过期time)

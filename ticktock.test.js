@@ -7,21 +7,21 @@ ticktock.whenTick(data => {
     console.log('[TickTock]:', data)
 }, null)
 
-ticktock.when('2018-11-14 12:09:55', data => {
+ticktock.when('2018-11-14 12:09:50', data => {
     let now = new Date(data.now).toLocaleString()
-    console.log('[Time Ocurred]:', now)
+    console.log('[Time Ocurred 50]:', now)
 }, null)
 
-ticktock.when('2018-11-14 12:09:57', data => {
+ticktock.when('2018-11-14 12:09:55', data => {
     let now = new Date(data.now).toLocaleString()
-    console.log('[Time Ocurred]:', now)
+    console.log('[Time Ocurred 55]:', now)
 }, null)
 
 ticktock.whenEnd(data => {
     console.log('[TimeEnd]:', data)
 }, null)
 
-ticktock.start('2018-11-14 12:09:50', '2018-11-14 12:10:00') // 指定开始结束时间 然后立即开始运行
+ticktock.start('2018-11-14 12:09:52', '2018-11-14 12:10:00') // 指定开始结束时间 然后立即开始运行
 
 setTimeout(() => {
     ticktock.stop()
