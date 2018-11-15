@@ -39,6 +39,17 @@ class TickTock {
 
         this._startTime = Date.now()
 
+        // 清除所有过期的time
+        let timers = this._evts['timer']
+
+        let nextTimers = []
+        for (let i=0; i<timers.length; i++) {
+            if (timers[i].time > this._sTime) {
+                nextTimers.push(timers[i])
+            }
+        }
+        this._evts['timer'] = nextTimers
+
         console.log('[Debug: StartTimer]:', this._name)
         this._run()
     }
@@ -87,26 +98,14 @@ class TickTock {
         if (timers.length === 0) return
 
         let nextTimers = []
-        let minTime = data.now
-        let minHandler = null
-        for (let i=0; i<timers.length; i++) { // 这里要确定最小时间 // 并只触发最小时间点 // 确保只有一个函数执行
+        for (let i=0; i<timers.length; i++) {
             let currTimer = timers[i]
 
-            let step = data.now - currTimer.time
             if (currTimer.time <= data.now) {
-                if (step < minTime) {
-                    minTime = currTimer.time
-                    minHandler = currTimer
-                } else {
-                    // 过期函数不执行
-                }
+                currTimer.fn.call(currTimer.ctx, data)
             } else {
                 nextTimers.push(currTimer)
             }
-        }
-
-        if (minHandler) {
-            minHandler.fn.call(minHandler.ctx, data)
         }
 
         this._evts['timer'] = nextTimers
@@ -181,7 +180,7 @@ class TickTock {
 
     /**
      * @public
-     * @method whenTic
+     * @method whenTick
      * @param {func} fn
      * @param {obj} ctx
      * @return {string} handlerId

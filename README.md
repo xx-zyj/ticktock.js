@@ -25,14 +25,14 @@
 <dt><a href="#count">count(seconds)</a></dt>
 <dd><p>运行倒计时</p>
 </dd>
-<dt><a href="#whenTic">whenTic(fn, ctx)</a> ⇒ <code>string</code></dt>
+<dt><a href="#whenTick">whenTick(fn, ctx)</a> ⇒ <code>string</code></dt>
 <dd><p>注册tick事件</p>
 </dd>
 <dt><a href="#whenEnd">whenEnd(fn, ctx)</a> ⇒ <code>string</code></dt>
 <dd><p>注册tick事件</p>
 </dd>
 <dt><a href="#when">when(time, fn, ctx)</a> ⇒ <code>string</code></dt>
-<dd><p>倒计时剩余时间为time时 有且只触发一次 -&gt; 如果7min注册一次, 5min注册一次, 开始倒计时为4min则只会触发5min, 就近原则</p>
+<dd><p>倒计时剩余时间为time时 有且只触发一次 -&gt; 如果7min注册一次, 5min注册一次, 开始倒计时为4min则都不会被触发/p>
 </dd>
 </dl>
 
@@ -91,9 +91,9 @@
 | --- | --- |
 | seconds | <code>number</code> |
 
-<a name="whenTic"></a>
+<a name="whenTick"></a>
 
-## whenTic(fn, ctx) ⇒ <code>string</code>
+## whenTick(fn, ctx) ⇒ <code>string</code>
 注册tick事件
 
 **Kind**: global function
@@ -122,7 +122,7 @@
 <a name="when"></a>
 
 ## when(time, fn, ctx) ⇒ <code>string</code>
-倒计时剩余时间为time时 有且只触发一次 -> 如果7min注册一次, 5min注册一次, 开始倒计时为4min则只会触发5min, 就近原则
+倒计时剩余时间为time时 有且只触发一次 -> 如果7min注册一次, 5min注册一次, 开始倒计时为4min则都不会被触发
 
 **Kind**: global function
 **Returns**: <code>string</code> - handlerId
@@ -140,4 +140,4 @@
 
 2. 倒计时不应该监听when(time)时间点，因为count没有时间的概念只会倒计时秒数
 
-3. timer when(time)，如果当前起始时间处于多个time之后，只会执行最靠近的一个time fn (这里有待商榷，可以修改为start时去除过期time)
+3. timer when(time)，如果当前起始时间处于多个time之后，改为start时去除过期time
